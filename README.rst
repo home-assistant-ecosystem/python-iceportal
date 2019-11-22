@@ -1,8 +1,8 @@
 ICE Portal
 ==========
 
-Python Client for interacting with the `openSenseMap <https://opensensemap.org/>`_
-API.
+Python Client for getting the data from the `ICE portal <https://iceportal.de>`_
+on ICE connections in Germany and partially in Switzerland.
 
 This module is not official, developed, supported or endorsed by
 `Deutsche Bahn <https://deutsche-bahn.de/>`_
