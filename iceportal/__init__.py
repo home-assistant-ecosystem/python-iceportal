@@ -33,11 +33,11 @@ class IcePortal(object):
             _LOGGER.info(
                 "Response from ICE Portal: %s", response.status)
             self.data = await response.json()
-            #_LOGGER.debug(self.data)
+            _LOGGER.debug(self.data)
 
         except (asyncio.TimeoutError, aiohttp.ClientError, socket.gaierror):
             _LOGGER.error("Can not load data from ICE Portal")
-            raise exceptions.ICEPortalConnectionError
+            raise exceptions.IcePortalConnectionError
 
     @property
     def train(self):
