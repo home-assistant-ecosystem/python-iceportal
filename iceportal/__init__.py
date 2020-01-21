@@ -1,4 +1,4 @@
-"""An ICE Portal Web scraper."""
+"""An ICE Portal API consumer."""
 import asyncio
 import logging
 import socket
@@ -10,10 +10,10 @@ import async_timeout
 from . import exceptions
 
 _LOGGER = logging.getLogger(__name__)
-_PORTAL = 'https://iceportal.de/api1/rs/tripInfo/trip'
+_PORTAL = "https://iceportal.de/api1/rs/tripInfo/trip"
 
 
-class IcePortal(object):
+class IcePortal:
     """A class for handling connections with the ICE Portal."""
 
     def __init__(self, loop, session):
@@ -30,8 +30,7 @@ class IcePortal(object):
             async with async_timeout.timeout(5, loop=self._loop):
                 response = await self._session.get(self.base_url)
 
-            _LOGGER.info(
-                "Response from ICE Portal: %s", response.status)
+            _LOGGER.info("Response from ICE Portal: %s", response.status)
             self.data = await response.json()
             _LOGGER.debug(self.data)
 
@@ -47,12 +46,12 @@ class IcePortal(object):
     @property
     def next_stop(self):
         """Return the next stop."""
-        stops = self.data['trip']['stops']
+        stops = self.data["trip"]["stops"]
         for stop in stops:
-            if stop['info']['passed'] is False:
-                self._track = stop['track']['actual']
-                self._arrival_time = str(stop['timetable']['actualArrivalTime'])[:-3]
-                return stop['station']['name']
+            if stop["info"]["passed"] is False:
+                self._track = stop["track"]["actual"]
+                self._arrival_time = str(stop["timetable"]["actualArrivalTime"])[:-3]
+                return stop["station"]["name"]
 
     @property
     def track(self):
