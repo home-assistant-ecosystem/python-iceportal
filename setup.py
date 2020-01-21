@@ -19,7 +19,7 @@ if sys.argv[-1] == "publish":
 
 setup(
     name="iceportal",
-    version="0.1.0",
+    version="1.0.0",
     description="Python client for getting data from the ICE Portal.",
     long_description=long_description,
     url="https://github.com/fabaff/python-iceportal",
