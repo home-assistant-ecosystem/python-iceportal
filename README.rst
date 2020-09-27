@@ -21,6 +21,14 @@ Usage
 
 The file ``example.py`` contains an example about how to use this module.
 
+Currently available information:
+
+- ID of the train
+- The next stop
+- The arrival track in the next station
+- The arrival time for the next station
+
+
 Development
 -----------
 
