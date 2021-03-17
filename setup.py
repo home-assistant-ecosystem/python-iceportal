@@ -15,7 +15,7 @@ with open(os.path.join(here, "README.rst"), encoding="utf-8") as readme:
 
 setup(
     name="iceportal",
-    version="1.0.0",
+    version="1.0.1",
     description="Python client for getting data from the ICE Portal.",
     long_description=long_description,
     url="https://github.com/fabaff/python-iceportal",
