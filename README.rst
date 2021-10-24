@@ -27,18 +27,16 @@ Currently available information:
 - The next stop
 - The arrival track in the next station
 - The arrival time for the next station
-
+- Current speed of the train
 
 Development
 -----------
 
-For development is recommended to use a ``venv``.
+For development use ``poetry``.
 
 .. code:: bash
 
-    $ python3 -m venv .
-    $ source bin/activate
-    $ python3 setup.py develop
+    $ poetry run python example.py
 
 License
 -------
