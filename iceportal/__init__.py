@@ -4,48 +4,67 @@ import logging
 import socket
 from datetime import datetime
 
-import aiohttp
-import async_timeout
+import httpx
 
 from . import exceptions
 
 _LOGGER = logging.getLogger(__name__)
 _PORTAL = "https://iceportal.de/api1/rs/tripInfo/trip"
+_STATUS = "https://iceportal.de/api1/rs/status"
 
 
 class IcePortal:
     """A class for handling connections with the ICE Portal."""
 
-    def __init__(self, loop, session):
+    def __init__(self):
         """Initialize the connection the ICE Portal."""
-        self._loop = loop
-        self._session = session
         self.data = {}
         self._track = self._arrival_time = None
-        self.base_url = _PORTAL
+        self.status = {}
 
     async def get_data(self):
         """Get details of the current trip."""
         try:
-            async with async_timeout.timeout(5, loop=self._loop):
-                response = await self._session.get(self.base_url)
+            async with httpx.AsyncClient() as client:
+                response = await client.get(str(_PORTAL))
+        except httpx.ConnectError:
+            raise exceptions.IcePortalConnectionError(
+                f"Connection to {_PORTAL} failed"
+            )
 
-            _LOGGER.info("Response from ICE Portal: %s", response.status)
-            self.data = await response.json()
-            _LOGGER.debug(self.data)
+        if response.status_code == httpx.codes.OK:
+            _LOGGER.debug(response.json())
+            try:
+                self.data = response.json()
+            except TypeError:
+                _LOGGER.error("Can not load data from the ICE portal")
+                raise exceptions.IcePortalError("Unable to get the data from the ICE portal")
 
-        except (asyncio.TimeoutError, aiohttp.ClientError, socket.gaierror):
-            _LOGGER.error("Can not load data from ICE Portal")
-            raise exceptions.IcePortalConnectionError
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.get(str(_STATUS))
+        except httpx.ConnectError:
+            raise exceptions.IcePortalConnectionError(
+                f"Connection to {_STATUS} failed"
+            )
+
+        if response.status_code == httpx.codes.OK:
+            _LOGGER.debug(response.json())
+            try:
+                self.status = response.json()
+            except TypeError:
+                _LOGGER.error("Can not load data from the ICE portal")
+                raise exceptions.IcePortalError("Unable to get the data from the ICE portal")
+
 
     @property
     def train(self):
-        """Return the ID of the train."""
+        """The ID of the train."""
         return f"{self.data['trip']['trainType']}{self.data['trip']['vzn']}"
 
     @property
     def next_stop(self):
-        """Return the next stop."""
+        """The next stop."""
         stops = self.data["trip"]["stops"]
         for stop in stops:
             if stop["info"]["passed"] is False:
@@ -55,10 +74,15 @@ class IcePortal:
 
     @property
     def track(self):
-        """Return the track of the next station."""
+        """The track of the next station."""
         return self._track
 
     @property
     def arrival_time(self):
-        """Return the arrival time at the next station."""
+        """The arrival time at the next station."""
         return datetime.utcfromtimestamp(int(self._arrival_time))
+
+    @property
+    def train_speed(self):
+        """The current speed of the trains."""
+        return self.status["speed"]
