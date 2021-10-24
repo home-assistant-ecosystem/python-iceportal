@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "iceportal"
+version = "1.1.0"
+description = "Python client for getting data from the ICE Portal"
+authors = ["Fabian Affolter <mail@fabian-affolter.ch>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+httpx = "^0.20.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+pytest = "^6.2.5"
+pytest-httpx = "^0.14.0"
+pytest-asyncio = "^0.15.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
