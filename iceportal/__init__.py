@@ -33,8 +33,8 @@ class IcePortal:
             )
 
         if response.status_code == httpx.codes.OK:
-            _LOGGER.debug(response.json())
             try:
+                _LOGGER.debug(response.json())
                 self.data = response.json()
             except TypeError:
                 _LOGGER.error("Can not load data from the ICE portal")
