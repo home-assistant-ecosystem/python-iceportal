@@ -17,5 +17,5 @@ async def main():
     print("Arrival time:", trip.arrival_time)
     print("Current speed (km/h):", trip.train_speed)
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
+if __name__ == "__main__":
+    asyncio.run(main())
