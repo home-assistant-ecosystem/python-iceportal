@@ -28,9 +28,7 @@ class IcePortal:
             async with httpx.AsyncClient() as client:
                 response = await client.get(str(_PORTAL))
         except httpx.ConnectError:
-            raise exceptions.IcePortalConnectionError(
-                f"Connection to {_PORTAL} failed"
-            )
+            raise exceptions.IcePortalConnectionError(f"Connection to {_PORTAL} failed")
 
         if response.status_code == httpx.codes.OK:
             try:
@@ -38,15 +36,15 @@ class IcePortal:
                 self.data = response.json()
             except TypeError:
                 _LOGGER.error("Can not load data from the ICE portal")
-                raise exceptions.IcePortalError("Unable to get the data from the ICE portal")
+                raise exceptions.IcePortalError(
+                    "Unable to get the data from the ICE portal"
+                )
 
         try:
             async with httpx.AsyncClient() as client:
                 response = await client.get(str(_STATUS))
         except httpx.ConnectError:
-            raise exceptions.IcePortalConnectionError(
-                f"Connection to {_STATUS} failed"
-            )
+            raise exceptions.IcePortalConnectionError(f"Connection to {_STATUS} failed")
 
         if response.status_code == httpx.codes.OK:
             _LOGGER.debug(response.json())
@@ -54,8 +52,9 @@ class IcePortal:
                 self.status = response.json()
             except TypeError:
                 _LOGGER.error("Can not load data from the ICE portal")
-                raise exceptions.IcePortalError("Unable to get the data from the ICE portal")
-
+                raise exceptions.IcePortalError(
+                    "Unable to get the data from the ICE portal"
+                )
 
     @property
     def train(self):

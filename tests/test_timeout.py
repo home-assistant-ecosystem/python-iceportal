@@ -5,6 +5,7 @@ from pytest_httpx import HTTPXMock
 from iceportal import IcePortal
 import httpx
 
+
 @pytest.mark.asyncio
 async def test_timeout(httpx_mock: HTTPXMock):
     """Test if the connection is hitting the timeout."""
