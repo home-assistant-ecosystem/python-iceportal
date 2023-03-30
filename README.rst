@@ -16,6 +16,13 @@ The module is available from the `Python Package Index <https://pypi.python.org/
 
     $ pip3 install iceportal
 
+For Nix or NixOS users is a package available. Keep in mind that the lastest releases might only
+be present in the ``unstable`` channel.
+
+.. code:: bash
+
+    $ nix-env -iA nixos.python3Packages.iceportal
+
 Usage
 -----
 
