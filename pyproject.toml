@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-httpx = ">=0.23,<1"
+httpx = ">=0.24,<1"
 
 [tool.poetry.dev-dependencies]
 black = "^23.11.0"
