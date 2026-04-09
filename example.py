@@ -1,4 +1,5 @@
 """Get the data from the ICE portal about the current trip."""
+
 import asyncio
 
 from iceportal import IcePortal

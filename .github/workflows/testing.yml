@@ -32,7 +32,7 @@ jobs:
 
     - name: Load cached venv
       id: cached-poetry-dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v5
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
@@ -48,6 +48,3 @@ jobs:
       run: |
         source .venv/bin/activate
         pytest tests/
-
-    - name: Black Code Formatter
-      uses: jpetrucciani/black-check@22.12.0

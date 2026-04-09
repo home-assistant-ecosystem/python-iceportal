@@ -1,4 +1,5 @@
 """Test the interaction with the currencylayer API."""
+
 import pytest
 from pytest_httpx import HTTPXMock
 
