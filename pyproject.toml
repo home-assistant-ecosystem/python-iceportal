@@ -6,7 +6,7 @@ authors = ["Fabian Affolter <mail@fabian-affolter.ch>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.13"
 httpx = ">=0.27,<1"
 
 [tool.poetry.dev-dependencies]
