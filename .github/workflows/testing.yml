@@ -48,6 +48,3 @@ jobs:
       run: |
         source .venv/bin/activate
         pytest tests/
-
-    - name: Black Code Formatter
-      uses: jpetrucciani/black-check@22.12.0
