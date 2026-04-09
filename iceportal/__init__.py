@@ -1,4 +1,5 @@
 """An ICE Portal API consumer."""
+
 import logging
 from datetime import datetime
 
