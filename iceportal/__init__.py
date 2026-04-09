@@ -1,7 +1,5 @@
 """An ICE Portal API consumer."""
-import asyncio
 import logging
-import socket
 from datetime import datetime
 
 import httpx
